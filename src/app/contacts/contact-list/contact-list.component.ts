@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Contact } from '../interface/contact';
 import { ContactService } from '../contact.service';
 import { Router } from '@angular/router';
@@ -18,8 +18,7 @@ export class ContactListComponent implements OnInit, OnDestroy {
    *
    */
   constructor(private contactServ: ContactService,
-    private router: Router,
-    private changeRef: ChangeDetectorRef) { }
+    private router: Router) { }
 
   /**
    *
@@ -28,7 +27,6 @@ export class ContactListComponent implements OnInit, OnDestroy {
     this.contactSub = this.contactServ.fetchContacts().subscribe(
       contacts => {
         this.contacts = contacts;
-        this.changeRef.markForCheck();
       },
       error => {
         console.error(error);
@@ -50,7 +48,6 @@ export class ContactListComponent implements OnInit, OnDestroy {
     this.contactServ.deleteContact(index).subscribe(
       contacts => {
         this.contacts = contacts;
-        this.changeRef.markForCheck();
       },
       error => {
         console.log(error);
