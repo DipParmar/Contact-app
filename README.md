@@ -1,3 +1,7 @@
+# Structure
+![GitHub Logo](/images/structure.png)
+Format: ![Alt Text](url)
+
 # ContactApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
