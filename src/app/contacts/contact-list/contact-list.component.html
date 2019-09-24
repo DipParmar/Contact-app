@@ -14,6 +14,7 @@
       title="Add new Contact"
     />
   </h3>
+<div class="contact-list">
   <section
     *ngFor="let contact of contacts | filter: search; let i = index"
     class="contact-details"
@@ -27,4 +28,5 @@
       <input type="button" (click)="delete(i)" value="Delete" />
     </section>
   </section>
+  </div>
 </div>
