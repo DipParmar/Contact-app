@@ -1,0 +1,18 @@
+.contact-list{
+    display: flex;
+    flex-direction: column;
+}
+
+h3 {
+    background: cornflowerblue;
+    color: #fff;
+    font-size: 1.3em;
+    padding: 5px;
+}
+
+.contact-details{
+    margin: 2px;
+    border: 1px groove #f9f9f9;
+    border-radius: 2px;
+    padding: 5px;
+}

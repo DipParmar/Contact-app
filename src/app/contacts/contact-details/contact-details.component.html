@@ -1,1 +1,5 @@
-<p>contact-details works!</p>
+<form [formGroup]="contactForm" (submit)="updateContact()">
+    <input type="text" formControlName="name" />
+    <input type="text" formControlName="number" />
+    <input type="submit" value="Update Contact">
+</form>

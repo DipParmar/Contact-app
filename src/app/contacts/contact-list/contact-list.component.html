@@ -1,1 +1,11 @@
-<p>contact-list works!</p>
+<div class="contact-list">
+    <h3>Contacts</h3>
+    <section *ngFor="let contact of contacts; let i = index;" class="contact-details">
+        <section class="contact-name">{{contact.name}}</section>
+        <section class="contact-number">{{contact.numbers[0]}}</section>
+        <section>
+            <input type="button" (click)="edit(i)" value="Edit">
+            <input type="button" (click)="delete(i)" value="Delete">
+        </section>
+    </section>
+</div>
