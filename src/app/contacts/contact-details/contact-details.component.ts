@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ContactService } from '../contact.service';
 import { Contact } from '../interface/contact';
 import { Subscription } from 'rxjs';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'ca-contact-details',
@@ -17,6 +17,10 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
   public contactSub: Subscription;
   public contactForm: any;
 
+  get numbers(): FormArray {
+    return this.contactForm.get('numbers') as FormArray;
+  }
+
   /**
    *
    */
@@ -26,7 +30,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder) { }
 
   /**
-   * 
+   *
    */
   ngOnInit() {
     this.index = +this.route.snapshot.paramMap.get('id');
@@ -38,28 +42,88 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
    *
    */
   buildContactForm() {
+    let contact;
+    if (this.contact != null) {
+      contact = this.contact;
+    } else {
+      contact = {
+        name: '',
+        numbers: ['']
+      };
+    }
+
     this.contactForm = this.formBuilder.group({
-      name: [this.contact.name, Validators.required],
-      number : [this.contact.numbers[0], Validators.required]
+      name: [contact.name || '', Validators.required],
+      numbers: this.formBuilder.array(this.updateNumbers())
     });
   }
 
   /**
    *
    */
-  updateContact() {
-    this.contact.name = this.contactForm.get('name').value;
-    this.contact.numbers[0] = this.contactForm.get('number').value;
-    console.log(this.contact);
-    this.contactServ.updateContact(this.index, this.contact);
-    this.router.navigate(['contacts']);
+  buildNumberField(num = ''): any {
+    return this.formBuilder.group({
+      number: [num, [Validators.required, Validators.pattern(/^\d*$/)]]
+    });
   }
 
   /**
    *
    */
-  ngOnDestroy(){
-    //this.contactSub.unsubscribe();
+  updateNumbers(): any {
+    const numbers = [];
+    if (this.contact == null) {
+      return [this.buildNumberField()];
+    } else {
+      for (let i = 0; i < this.contact.numbers.length; ++i) {
+        numbers[i] = this.buildNumberField(this.contact.numbers[i]);
+      }
+      return numbers;
+    }
+  }
+
+  /**
+   *
+   */
+  createOrUpdateContact() {
+    const contact = {
+      name: this.contactForm.get('name').value,
+      numbers: []
+    };
+
+    for (const num of this.contactForm.get('numbers').value) {
+      contact.numbers.push(num.number);
+    }
+
+    if (this.index > -1) {
+      this.contactServ.updateContact(this.index, contact);
+    } else {
+      this.contactServ.addContact(contact);
+    }
+    this.router.navigate(['contacts']);
+  }
+
+  addNumber() {
+    this.numbers.push(this.buildNumberField());
+  }
+
+  removeNumber(index) {
+    this.numbers.removeAt(index);
+  }
+
+  /**
+   *
+   */
+  ngOnDestroy() {
+    // this.contactSub.unsubscribe();
+  }
+
+  hasError(element) {
+    if(element.touched && !element.valid) {
+      return element.hasError('pattern') || element.hasError('required');
+    } else {
+      return false;
+    }
   }
 
 }

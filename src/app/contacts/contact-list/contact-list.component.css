@@ -1,18 +1,27 @@
-.contact-list{
-    display: flex;
-    flex-direction: column;
+.contact-list {
+  display: flex;
+  flex-direction: column;
 }
 
-h3 {
-    background: cornflowerblue;
-    color: #fff;
-    font-size: 1.3em;
-    padding: 5px;
+.contact-details {
+  border: 2px groove #ffffff;
+  border-radius: 2px;
+  padding: 5px;
 }
 
-.contact-details{
-    margin: 2px;
-    border: 1px groove #f9f9f9;
-    border-radius: 2px;
-    padding: 5px;
+.add-new {
+  margin: 5px;
+}
+
+.contact-actions {
+  margin: 2px;
+  float: right;
+}
+
+.contact-info {
+  float: left;
+}
+
+input[type=button] {
+  margin: 2px;
 }

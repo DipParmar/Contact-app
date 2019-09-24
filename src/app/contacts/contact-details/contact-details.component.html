@@ -1,5 +1,47 @@
-<form [formGroup]="contactForm" (submit)="updateContact()">
-    <input type="text" formControlName="name" />
-    <input type="text" formControlName="number" />
-    <input type="submit" value="Update Contact">
+<form [formGroup]="contactForm" (submit)="createOrUpdateContact()">
+  <div>
+    <label for="name">Name:</label>
+    <input id="name" type="text" formControlName="name" />
+  </div>
+  <div
+    formArrayName="numbers"
+    *ngFor="let number of numbers.controls; let i = index"
+  >
+    <div [formGroupName]="i">
+      <label for="number{{ i }}">Number:</label>
+      <input
+        id="number{{ i }}"
+        type="text"
+        formControlName="number"
+        [ngClass]="{ 'input-error': hasError(number.get('number')) }"
+      />
+      <input
+        type="button"
+        value="Remove"
+        (click)="removeNumber(i)"
+        *ngIf="numbers.controls.length > 1"
+        class="remove"
+      />
+      <span
+        *ngIf="number.get('number').invalid && number.get('number').touched"
+      >
+        <span *ngIf="number.get('number').hasError('pattern')" class="err-msg"
+          >Please enter numbers only</span
+        >
+        <span *ngIf="number.get('number').hasError('required')" class="err-msg"
+          >Please enter the mobile number</span
+        >
+      </span>
+    </div>
+  </div>
+  <input type="button" value="Add more numbers" (click)="addNumber()" class="add-btn"/>
+  <section class="form-action">
+    <input
+      type="submit"
+      value="{{ index > -1 ? 'Update Contact' : 'Add Contact' }}"
+      [disabled]="!contactForm.valid"
+      [ngClass]="{ 'btn-disabled': !contactForm.valid }"
+      class="submit-btn"
+    />
+  </section>
 </form>

@@ -6,13 +6,13 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'ca-contact-list',
   templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit, OnDestroy {
 
-  public contacts: Contact[];
+  public contacts: Contact[] = [];
   private contactSub;
+  public search = '';
 
   /**
    *
@@ -22,7 +22,7 @@ export class ContactListComponent implements OnInit, OnDestroy {
     private changeRef: ChangeDetectorRef) { }
 
   /**
-   * 
+   *
    */
   ngOnInit() {
     this.contactSub = this.contactServ.fetchContacts().subscribe(
@@ -37,17 +37,25 @@ export class ContactListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
+   *
    */
   edit(index: number) {
     this.router.navigate(['/contacts', index]);
   }
 
   /**
-   * 
+   *
    */
   delete(index: number) {
-    this.contactServ.deleteContact(index);
+    this.contactServ.deleteContact(index).subscribe(
+      contacts => {
+        this.contacts = contacts;
+        this.changeRef.markForCheck();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   /**

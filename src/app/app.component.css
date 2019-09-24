@@ -1,0 +1,35 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #f3f3f3;
+}
+
+li {
+  float: left;
+  font-size: 0.8em;
+}
+
+li a, .dropbtn {
+  display: inline-block;
+  color: #000;
+  text-align: center;
+  padding: 12px 12px;
+  text-decoration: none;
+  margin: 2px;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+  background-color: #008CBA;
+  color: #fff;
+}
+
+.active{
+  background-color: #008CBA;
+  color: #fff !important;
+}
+
+footer {
+  text-align: center;
+}

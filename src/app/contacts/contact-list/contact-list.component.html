@@ -1,11 +1,30 @@
 <div class="contact-list">
-    <h3>Contacts</h3>
-    <section *ngFor="let contact of contacts; let i = index;" class="contact-details">
-        <section class="contact-name">{{contact.name}}</section>
-        <section class="contact-number">{{contact.numbers[0]}}</section>
-        <section>
-            <input type="button" (click)="edit(i)" value="Edit">
-            <input type="button" (click)="delete(i)" value="Delete">
-        </section>
+  <input
+    type="text"
+    class="search-contact"
+    [(ngModel)]="search"
+    placeholder="Search by name and contact"
+  />
+  <h3>
+    <input
+      type="button"
+      class="add-new"
+      routerLink="/contacts/-1"
+      value="Add New Contact"
+      title="Add new Contact"
+    />
+  </h3>
+  <section
+    *ngFor="let contact of contacts | filter: search; let i = index"
+    class="contact-details"
+  >
+    <div class="contact-info">
+      <section class="contact-name">{{ contact.name }}</section>
+      <section class="contact-number">{{ contact.numbers }}</section>
+    </div>
+    <section class="contact-actions">
+      <input type="button" (click)="edit(i)" value="Edit" />
+      <input type="button" (click)="delete(i)" value="Delete" />
     </section>
+  </section>
 </div>

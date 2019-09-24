@@ -44,6 +44,7 @@ export class ContactService {
    */
   deleteContact(index) {
     this.contacts.splice(index, 1);
+    return of(this.contacts);
   }
 
   /**
@@ -58,5 +59,12 @@ export class ContactService {
    */
   updateContact(index, updatedContact) {
     this.contacts[index] = updatedContact;
+  }
+
+  /**
+   *
+   */
+  addContact(contact) {
+    this.contacts.push(contact);
   }
 }

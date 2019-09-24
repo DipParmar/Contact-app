@@ -1,1 +1,10 @@
+<header>
+  <ul>
+    <li><a routerLink="contacts" routerLinkActive="active"  [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+    <li><a routerLink="contacts/-1" routerLinkActive="active"  [routerLinkActiveOptions]="{ exact: true }">New Contact</a></li>
+  </ul>
+</header>
 <router-outlet></router-outlet>
+<footer>
+  &copy; 2019
+</footer>
