@@ -1,6 +1,5 @@
 # Structure
 ![GitHub Logo](/images/structure.png)
-Format: ![Structure](url)
 
 # ContactApp
 
