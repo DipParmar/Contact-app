@@ -1,3 +1,14 @@
+# Functional:
+
+1. Around 25 contacts already added.
+2. Search by name and numbers.
+3. Add and Update numbers only for client side, if you refresh the page changes will be gone.
+4. Add or Update multiple numbers with single name.
+5. In add and Edit Form Number and Name filed is required.
+6. Number field can only accept numbers, on other characters it will show an error.
+7. After Update or Adding Contact page will be redirect to the home page.
+8. To create this used Routing, Reactive Forms, Other Angular Stuff
+
 # Structure
 ![GitHub Logo](/images/structure.png)
 
